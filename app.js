@@ -5,13 +5,13 @@ var mongoose = require("mongoose");
 var config = require("./api/config");
 
 var todoController = require("./api/todos.js");
-
+// todoController()
 // initialize environment
 require("dotenv").config();
 
 console.log(process.env);
 
-var app = express();
+var app = express(); // 
 var port = process.env.PORT || 3000;
 
 app.use("/assets", express.static(__dirname + "/assets"));
@@ -29,6 +29,7 @@ console.log(config.getConnectionString());
 
 mongoose.connect(config.getConnectionString());
 
+// API
 todoController(app);
 
 app.get("/", function (req, res) {
