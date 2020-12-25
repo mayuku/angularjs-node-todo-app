@@ -10,6 +10,10 @@ var todoSchema = new Schema({
 
 var Todo = mongoose.model("Todos", todoSchema);
 
+// 500 internal server error
+// 200 ok
+// 422 validation invalid data
+
 module.exports = function (app) {
   app.get("/api/todos", function (req, res) {
     Todo.find(function (err, todos) {
@@ -31,9 +35,10 @@ module.exports = function (app) {
     });
   });
 
-  //Create a todo
+  // Create a todo
   app.post("/api/todos", function (req, res) {
     if (!req.body.value) {
+      // validation status code
       return res.status(422).json({
         error: "Value is required.",
       });
@@ -53,7 +58,7 @@ module.exports = function (app) {
     });
   });
 
-  //update a todo
+  // update a todo
   app.put("/api/todos/:id", function (req, res) {
     if (!req.body.value) {
       return res.status(422).json({
@@ -78,7 +83,7 @@ module.exports = function (app) {
     );
   });
 
-  //delete
+  // delete
   app.delete("/api/todos/:id", function (req, res) {
     Todo.remove(
       {
@@ -89,7 +94,7 @@ module.exports = function (app) {
           return res.status(500).json(err);
         }
 
-        return res.status(204);
+        return res.status(204).json(null);
       }
     );
   });

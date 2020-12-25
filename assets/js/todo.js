@@ -1,9 +1,11 @@
 angular.module("todoApp", []).controller("TodoController", [
-  "$scope",
-  "$http",
+  "$scope", // application scope
+  "$http", // access api endpoints
   function ($scope, $http) {
     var app = this;
 
+    // Initial state
+    // Model
     app.todos = [];
     app.fetchingTodos = true;
     app.selectedTodo = null;
@@ -11,11 +13,15 @@ angular.module("todoApp", []).controller("TodoController", [
     app.selectedIndex = -1;
     app.filter = "";
     app.hasError = false;
+    app.inputValue = '';
 
+    // Use to filter
     $scope.byStatus = function (value) {
       $scope.status = value;
     };
 
+    // when app is load
+    // load()
     $scope.load = function () {
       app.fetchingTodos = true;
       $http({
@@ -71,6 +77,7 @@ angular.module("todoApp", []).controller("TodoController", [
           if (app.selectedIndex >= 0) {
             var todo = app.todos[app.selectedIndex];
             console.log(todo, "TODO");
+
             app.todos[app.selectedIndex] = Object.assign(
               app.todos[app.selectedIndex],
               {
@@ -146,7 +153,7 @@ angular.module("todoApp", []).controller("TodoController", [
     };
 
     app.handleEditTodo = function (todo, index) {
-      app.editTodo = true;
+      app.editTodo = true; // flag
       app.inputValue = todo.value;
       app.selectedTodo = todo;
       app.selectedIndex = index;
