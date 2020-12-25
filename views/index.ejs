@@ -1,0 +1,64 @@
+<!doctype html>
+<html ng-app="todoApp">
+  <head>
+    <title>App Todo</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/resets.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="assets/js/todo.js"></script>
+  </head>
+  <body>
+    <div class="container" id="app">
+        
+        <h1 style="border-bottom: 1px solid #e2e2e2;">Todo App</h1>
+        <div ng-controller="TodoController as controller" data-ng-init='load()'>
+            <div ng-show="controller.fetchingTodos" class="loading">Please wait...</div>
+            <div ng-show="!controller.fetchingTodos">
+                
+                <div style="text-align: center; padding: 1em 0;">
+                    <label class="checkbox">
+                        <input name="filter" type="radio" ng-click="byStatus('')" value="">
+                        <span>All</span>
+                    </label>
+                    <!-- <label class="checkbox">
+                        <input name="filter" type="radio" ng-click="byStatus('')" value="active">
+                        <span>Completed</span>
+                    </label> -->
+                    <label class="checkbox">
+                        <input name="filter" type="radio" ng-click="byStatus('completed')" value="completed">
+                        <span>Completed</span>
+                    </label>
+                </div>
+                <input name="todo" type="text" ng-model="controller.inputValue" ng-keydown="controller.clickAddNewTodo($event)" placeholder="Enter new Todo..." ng-click="event = $event" ng-change="controller.onChange(event)" ng-class="{'error': controller.hasError}"/>
+
+            <div>
+                <div style="
+                    padding: 1em 1.5em;
+                    border: 1px solid #fefefe;
+                    border-radius: 1.5em;
+                    margin: 1em 0;
+                    background: white;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                "
+                ng-repeat="todo in controller.todos | filter:status"
+                >
+                    <label style="flex: 1" for="{{ 'todo-item-' + $index}}">
+                        <input id="{{ 'todo-item-' + $index}}" type="checkbox" ng-checked="(todo.status === 'completed')" ng-click="controller.handleMarkAsCompleted(todo, $index, $event)">
+                        <span style="padding: 0 1em;" ng-class="{'completed': todo.isDone}">{{todo.value}}</span>
+                    </label>
+                    <span style="padding: 0 1em;">{{todo.created_date}}</span>
+                    <div>
+                        <button class="button button-edit" ng-click="controller.handleEditTodo(todo, $index)">Edit</button>
+                        <button class="button button-delete" ng-click="controller.handleDeleteTodo(todo, $index)">Delete</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+  </body>
+</html>
