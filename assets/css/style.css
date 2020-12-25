@@ -78,6 +78,11 @@ h6 {
 
 .completed {
   text-decoration: line-through;
+  padding: 0 1em;
+}
+
+.created-date {
+  padding: 0 1em;
 }
 
 .button {
@@ -120,6 +125,25 @@ h6 {
 
 .error {
   border: 1px solid #fb4443 !important;
+}
+
+.todo-item {
+  padding: 1em 1.5em;
+  border: 1px solid #fefefe;
+  border-radius: 1.5em;
+  margin: 1em 0;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-header {
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.todo-filter {
+  text-align: center; padding: 1em 0;
 }
 
 /* 
